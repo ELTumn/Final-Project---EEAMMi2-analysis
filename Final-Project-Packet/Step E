@@ -1,0 +1,19 @@
+Emma Estrella and Erin Todd
+Step E
+
+*Step E*
+For this section of the project, you will submit a knitted version of your .Rmd file to Canvas. This is intended to be a draft of your data analysis and a graph representing your data. While it does not have to be complete, it must be complete enough for me to see that you have started and for you to identify any problems that we need to address for you to successfully complete the project. 
+
+*Grading Criteria for Step E*
+Submitted a knitted .Rmd file: students submitted a knitted .Rmd file with NO hidden code (5 pts) 
+
+Data were cleaned appropriately: Data were cleaned to allow students to conduct analyses and to create a visual of the data (5 pts) 
+-Using pre-cleaned dataset. Information regarding cleaning from original researchers has been uploaded to our GitHub repository
+
+Analyses were attempted: There were clear attempts to complete the analyses. If analyses are not complete, next steps are clearly identified in the document and the student has a plan to finalize analysis by Step F (5 pts) 
+-Emma doing t-test and correlation
+-Erin doing Anova
+
+Visual was attempted: There were clear attempts to create a visual. If analyses are not complete, next steps are clearly identified in the document and the student has a plan to finalize analysis by Step F (5 pts) 
+-Emma doing t-test and correlation
+-Erin doing Anova
