@@ -1,0 +1,22 @@
+Emma Estrella
+Erin Todd 
+Step D
+
+Link to pre-registration on OSF: https://osf.io/7z9xh/ 
+
+
+Research Questions:
+Is there a difference between stress levels of those who have a disability and those who don’t?
+Do individuals with different types of disabilities report different levels of stress?
+Is reporting being bothered by physical health symptoms related to reporting higher levels of stress?
+
+Hypotheses:
+There will be a difference in reported stress between individuals who report having a disability and individuals who do not report having a disability
+Individuals' stress levels will vary depending on the type of disability (i.e., physical, sensory, learning, psychiatric, chronic health, other) they report.
+Reported displeasure over physical health symptoms (e.g., chronic pain, respiratory discomfort) will positively correlate with reported stress level.  
+
+
+Analysis Plan:
+Independent samples t-test between disabled and non-disabled participants and stress scores
+ANOVA with disability type as IV and stress score as DV
+Pearson’s correlation between stress score and physical symptoms score (directional)
