@@ -1,0 +1,40 @@
+---
+title: "PSY 4960 Project code"
+author: "Emma Estrella and Erin Todd"
+date: "11/22/2021"
+output: html_document
+---
+
+Uploading and subsetting data
+```{r}
+EAMMi2 <- read_sav("EAMMi2-CleanData.sav")
+
+EAMMi2_subset <- data.frame(EAMMi2$DisabilityIdentification, EAMMi2$PhysicalDis, EAMMi2$SensoryDis, EAMMi2$LearningDis,EAMMi2$PsychiatricDis, EAMMi2$ChronicHealthDis, EAMMi2$OtherDis, EAMMi2$OtherDisSpecify, EAMMi2$physsymSUM, EAMMi2$stressSUM)
+
+colnames(EAMMi2_subset) <- c("disIdentity", "physical", "sensory", "learning", "phychiatric", "chronicHealth", "otherDis", "otherDis_specify", "physSx_sum", "stress_sum")
+```
+
+Statistical tests
+```{r}
+#Hypothesis 1
+t.test()
+
+#Hypothesis 2
+library(car)
+Anova()
+
+#Hypothesis 3
+cor.test(EAMMi2_subset$physSx_sum, EAMMi2_subset$stress_sum)
+```
+
+Visual representations
+```{r}
+#Hypothesis 1
+
+
+#Hypothesis 2
+
+
+#Hypothesis 3
+
+```
