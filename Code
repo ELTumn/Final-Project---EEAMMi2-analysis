@@ -11,7 +11,7 @@ EAMMi2 <- read_sav("EAMMi2-CleanData.sav")
 
 EAMMi2_subset <- data.frame(EAMMi2$DisabilityIdentification, EAMMi2$PhysicalDis, EAMMi2$SensoryDis, EAMMi2$LearningDis,EAMMi2$PsychiatricDis, EAMMi2$ChronicHealthDis, EAMMi2$OtherDis, EAMMi2$OtherDisSpecify, EAMMi2$physsymSUM, EAMMi2$stressSUM)
 
-colnames(EAMMi2_subset) <- c("disIdentity", "physical", "sensory", "learning", "phychiatric", "chronicHealth", "otherDis", "otherDis_specify", "physSx_sum", "stress_sum")
+colnames(EAMMi2_subset) <- c("disIdentity", "physical", "sensory", "learning", "psychiatric", "chronicHealth", "otherDis", "otherDis_specify", "physSx_sum", "stress_sum")
 ```
 
 **Statistical tests**
