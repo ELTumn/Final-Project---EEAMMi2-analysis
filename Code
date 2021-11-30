@@ -12,19 +12,24 @@ EAMMi2 <- read_sav("EAMMi2-CleanData.sav")
 EAMMi2_subset <- data.frame(EAMMi2$DisabilityIdentification, EAMMi2$PhysicalDis, EAMMi2$SensoryDis, EAMMi2$LearningDis,EAMMi2$PsychiatricDis, EAMMi2$ChronicHealthDis, EAMMi2$OtherDis, EAMMi2$OtherDisSpecify, EAMMi2$physsymSUM, EAMMi2$stressSUM)
 
 colnames(EAMMi2_subset) <- c("disIdentity", "physical", "sensory", "learning", "psychiatric", "chronicHealth", "otherDis", "otherDis_specify", "physSx_sum", "stress_sum")
+
+completedat <- subset(EAMMi2_subset, complete.cases(EAMMi2_subset)==TRUE)
 ```
 
 **Statistical tests**
 ```{r}
 #Hypothesis 1
-t.test(EAMMi2_subset$stress_sum[EAMMi2_subset$disIdentity==1], EAMMi2_subset$stress_sum[EAMMi2_subset$disIdentity==3])
+t.test(completedat$stress_sum[completedat$disIdentity==1], completedat$stress_sum[completedat$disIdentity==3])
 
 #Hypothesis 2
 library(car)
+library(tidyr)
+long_dis <- pivot_longer(EAMMi2_subset, cols= c("physical","sensory","learning","psychiatric","chronicHealth","otherDis"), names_to= "disabilityType", values_to = "disabilityPresence")
+
 Anova()
 
 #Hypothesis 3
-cor.test(EAMMi2_subset$physSx_sum, EAMMi2_subset$stress_sum)
+cor.test(completedat$physSx_sum, completedat$stress_sum)
 ```
 
 **Visual representations**
@@ -34,10 +39,8 @@ library(ggplot2)
 #Hypothesis 1
 library(Rmisc)
 
-EAMMi2_dis <- subset(EAMMi2_subset, disIdentity==1 | disIdentity==3) #subset for only people who said they had a disability and reported a type and people who said they did not have a disability and did not report a type
-ggplot(EAMMi2_dis, aes(disIdentity, stress_sum)) + geom_bar(stat="identity")
-
-EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disIdentity") #tried using summarySE to fix the y axis problem but I don't think it worked
+EAMMi2_dis <- subset(completedat, disIdentity==1 | disIdentity==3)
+EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disIdentity")
 ggplot(EAMMi2_graph, aes(disIdentity, stress_sum)) + geom_bar(stat="identity")
 
 #Hypothesis 2
@@ -45,5 +48,4 @@ ggplot(EAMMi2_graph, aes(disIdentity, stress_sum)) + geom_bar(stat="identity")
 
 #Hypothesis 3
 ggplot(EAMMi2_subset, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Summed Physical Symptoms Score") + ylab(label= "Summed Stress Score \n")
-#we will probably need to do more edits to this to make it look better haha but this is a basic graph
 ```
