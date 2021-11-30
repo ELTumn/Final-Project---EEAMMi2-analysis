@@ -5,7 +5,7 @@ date: "11/22/2021"
 output: html_document
 ---
 
-Uploading and subsetting data
+**Uploading and subsetting data**
 ```{r}
 EAMMi2 <- read_sav("EAMMi2-CleanData.sav")
 
@@ -14,10 +14,10 @@ EAMMi2_subset <- data.frame(EAMMi2$DisabilityIdentification, EAMMi2$PhysicalDis,
 colnames(EAMMi2_subset) <- c("disIdentity", "physical", "sensory", "learning", "phychiatric", "chronicHealth", "otherDis", "otherDis_specify", "physSx_sum", "stress_sum")
 ```
 
-Statistical tests
+**Statistical tests**
 ```{r}
 #Hypothesis 1
-t.test()
+t.test(EAMMi2_subset$stress_sum[EAMMi2_subset$disIdentity==1], EAMMi2_subset$stress_sum[EAMMi2_subset$disIdentity==3])
 
 #Hypothesis 2
 library(car)
@@ -27,14 +27,23 @@ Anova()
 cor.test(EAMMi2_subset$physSx_sum, EAMMi2_subset$stress_sum)
 ```
 
-Visual representations
+**Visual representations**
 ```{r}
-#Hypothesis 1
+library(ggplot2)
 
+#Hypothesis 1
+library(Rmisc)
+
+EAMMi2_dis <- subset(EAMMi2_subset, disIdentity==1 | disIdentity==3) #subset for only people who said they had a disability and reported a type and people who said they did not have a disability and did not report a type
+ggplot(EAMMi2_dis, aes(disIdentity, stress_sum)) + geom_bar(stat="identity")
+
+EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disIdentity") #tried using summarySE to fix the y axis problem but I don't think it worked
+ggplot(EAMMi2_graph, aes(disIdentity, stress_sum)) + geom_bar(stat="identity")
 
 #Hypothesis 2
 
 
 #Hypothesis 3
-
+ggplot(EAMMi2_subset, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Summed Physical Symptoms Score") + ylab(label= "Summed Stress Score \n")
+#we will probably need to do more edits to this to make it look better haha but this is a basic graph
 ```
