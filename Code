@@ -70,6 +70,3 @@ ggplot(summaryDis, aes(disabilityType, stress_sum)) +geom_col() +theme_bw() + ge
 
 #Hypothesis 3
 ggplot(completedat, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Average Physical Symptoms Score") + ylab(label= "Average Stress Score \n") +stat_regline_equation(label.x=0, label.y=25.5) +stat_cor(aes(physSx_sum, stress_sum), label.x=0, label.y=50)
-
-```
-
