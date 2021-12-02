@@ -62,7 +62,7 @@ for(i in 1:nrow(EAMMi2_dis)){
 
 EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disabilityPresence")
 
-ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +ggtitle(label="t-test Between Presence of Disability and Stress")
+ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +gtitle(label=expression(italic("t")~"-test Between Presence of Disability and Stress"))
 
 #Hypothesis 2
 library(stats)
