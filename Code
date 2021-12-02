@@ -8,7 +8,7 @@ output: html_document
 Uploading and subsetting data
 ```{r}
 library(haven)
-EAMMi2 <- read_sav("EAMMi2-CleanData.sav")
+EAMMi2 <- read_sav("C:/Users/8estr/Desktop/PSY 4960 Project/EAMMi2-CleanData.sav")
 
 EAMMi2_subset <- data.frame(EAMMi2$DisabilityIdentification, EAMMi2$PhysicalDis, EAMMi2$SensoryDis, EAMMi2$LearningDis,EAMMi2$PsychiatricDis, EAMMi2$ChronicHealthDis, EAMMi2$OtherDis, EAMMi2$OtherDisSpecify, EAMMi2$physsymSUM, EAMMi2$stressSUM)
 
@@ -23,9 +23,11 @@ library(car)
 library(tidyr)
 library(lme4)
 library(Rmisc)
+library(effsize)
 
 #Hypothesis 1
 t.test(completedat$stress_sum[completedat$disIdentity==1], completedat$stress_sum[completedat$disIdentity==3])
+cohen.d(completedat$stress_sum[completedat$disIdentity==1], completedat$stress_sum[completedat$disIdentity==3])
 
 #Hypothesis 2
 long_dis <- pivot_longer(completedat, cols= c("physical","sensory","learning","psychiatric","chronicHealth","otherDis"), names_to= "disabilityType", values_to = "disabilityPresence")
@@ -33,7 +35,7 @@ long_dis <- pivot_longer(completedat, cols= c("physical","sensory","learning","p
 anovaDat <- subset(long_dis, long_dis$disabilityPresence==1)
 anovaDat$disabilityType <- as.factor(anovaDat$disabilityType)
 linear_dis <- lm(stress_sum~disabilityType, data=anovaDat)
-anova(linear_dis)
+anova(linear_dis) ##no p values??
 
 #Hypothesis 3
 cor.test(completedat$physSx_sum, completedat$stress_sum)
@@ -60,13 +62,13 @@ for(i in 1:nrow(EAMMi2_dis)){
 
 EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disabilityPresence")
 
-ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5))
+ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +ggtitle(label="t-test Between Presence of Disability and Stress")
 
 #Hypothesis 2
 library(stats)
 summaryDis <- summarySE(anovaDat, measurevar= "stress_sum", groupvars= "disabilityType")
 levels(summaryDis$disabilityType) <- c("Physical","Learning","Sensory","Psychiatric","Chronic Health","Other Disability")
-ggplot(summaryDis, aes(disabilityType, stress_sum)) +geom_col() +theme_bw() + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +xlab(label="\n Disability Type") +ylab(label="Average Stress Score \n")
+ggplot(summaryDis, aes(disabilityType, stress_sum)) +geom_col() +theme_bw() + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +xlab(label="\n Disability Type") +ylab(label="Average Stress Score \n") + ggtitle(label="ANOVA Between Types of Disability and Stress")
 
 #Hypothesis 3
-ggplot(completedat, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Average Physical Symptoms Score") + ylab(label= "Average Stress Score \n") +stat_regline_equation(label.x=0, label.y=25.5) +stat_cor(aes(physSx_sum, stress_sum), label.x=0, label.y=50)
+ggplot(completedat, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Average Physical Symptoms Score") + ylab(label= "Average Stress Score \n") +stat_regline_equation(label.x=0, label.y=25.5) +stat_cor(aes(physSx_sum, stress_sum), label.x=0, label.y=50) +ggtitle(label="Pearson Correlation Between Stress and Physical Symptom Distress")
