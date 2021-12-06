@@ -62,13 +62,13 @@ for(i in 1:nrow(EAMMi2_dis)){
 
 EAMMi2_graph <- summarySE(EAMMi2_dis, measurevar = "stress_sum", groupvars = "disabilityPresence")
 
-ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +gtitle(label=expression(italic("t")~"-test Between Presence of Disability and Stress"))
+ggplot(EAMMi2_graph, aes(disabilityPresence, stress_sum)) + geom_bar(stat="identity") +theme_bw() +xlab(label=" \n Disability Presence") +ylab(label="Average Stress Score \n") + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +gtitle(label=expression(italic("t")~"-test Between Presence of Disability and Stress"))+geom_col(fill= "lightpink4")
 
 #Hypothesis 2
 library(stats)
 summaryDis <- summarySE(anovaDat, measurevar= "stress_sum", groupvars= "disabilityType")
 levels(summaryDis$disabilityType) <- c("Physical","Learning","Sensory","Psychiatric","Chronic Health","Other Disability")
-ggplot(summaryDis, aes(disabilityType, stress_sum)) +geom_col() +theme_bw() + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +xlab(label="\n Disability Type") +ylab(label="Average Stress Score \n") + ggtitle(label="ANOVA Between Types of Disability and Stress")
+ggplot(summaryDis, aes(disabilityType, stress_sum)) +geom_col(fill= "lightpink4") +theme_bw() + geom_errorbar(aes(ymin = stress_sum - se, ymax = stress_sum + se, width= .5)) +xlab(label="\n Disability Type") +ylab(label="Average Stress Score \n") + ggtitle(label="ANOVA Between Types of Disability and Stress")
 
 #Hypothesis 3
-ggplot(completedat, aes(physSx_sum, stress_sum)) + geom_point() + theme_bw() +geom_smooth(method="lm") + xlab(label="\n Average Physical Symptoms Score") + ylab(label= "Average Stress Score \n") +stat_regline_equation(label.x=0, label.y=25.5) +stat_cor(aes(physSx_sum, stress_sum), label.x=0, label.y=50) +ggtitle(label="Pearson Correlation Between Stress and Physical Symptom Distress")
+ggplot(completedat, aes(physSx_sum, stress_sum)) + geom_point(color= "lightpink4") + theme_bw() +geom_smooth(method="lm", color = "black") + xlab(label="\n Average Physical Symptoms Score") + ylab(label= "Average Stress Score \n") +stat_regline_equation(label.x=0, label.y=25.5) +stat_cor(aes(physSx_sum, stress_sum), label.x=0, label.y=50) +ggtitle(label="Pearson Correlation Between Stress and Physical Symptom Distress")
